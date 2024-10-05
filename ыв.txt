@@ -1,0 +1,39 @@
+from PIL import Image, ImageChops
+import numpy as np
+import pyglet
+
+image_1=Image.open('yarik1.png')
+image_2=Image.open('yura1.png')
+
+result=ImageChops.difference(image_1, image_2)
+result.show()
+
+f = 0
+test = np.array(result)
+
+test1 = test.shape[0]
+test2 = test.shape[1]
+size = test1 * test2
+
+for i in test:
+    for j in i:
+        if j[0] < 50 and j[1] < 50 and j[2] < 50:
+            f+= 1
+
+        else:
+            continue
+
+
+x = 100*f//size
+if x <= 50:
+    mus = pyglet.resource.media("mazellovvv_-_Gimn_tvicha_(TheMP3.Info).mp3")
+    mus.play()
+
+    pyglet.app.run()
+print(x)
+
+#Вычисляет ограничивающую рамку ненулевых областей на изображении.
+#print(result.getbbox())
+
+# result.getbbox() в данном случае вернет (0, 0, 888, 666)
+result.save('result.jpg')
